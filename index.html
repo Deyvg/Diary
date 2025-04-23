@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent-color: #ff69b4;
+      --background-color: #0a0a0a;
+      --entry-bg: #111;
+      --text-color: #ffffff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+    #password-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    #password-box {
+      background: var(--entry-bg);
+      padding: 2rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px var(--accent-color);
+    }
+    #password-box h2 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+    #password-input {
+      padding: 0.5rem;
+      width: 200px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+    #submit-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background-color: var(--accent-color);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #submit-btn:hover {
+      background-color: #ff4fa3;
+    }
+    header {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-color);
+      margin: 1rem auto;
+      display: block;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+    .entry {
+      background: var(--entry-bg);
+      border-left: 4px solid var(--accent-color);
+      padding: 1rem;
+      margin: 1rem auto;
+      max-width: 700px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--accent-color);
+      position: relative;
+    }
+    .entry h2 {
+      color: var(--accent-color);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .entry p {
+      color: #ddd;
+      white-space: pre-wrap;
+    }
+    .entry button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent-color);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+    #new-entry-box {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: var(--entry-bg);
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+    #new-entry-box textarea {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      resize: vertical;
+      min-height: 100px;
+    }
+    #add-entry-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background-color: var(--accent-color);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #add-entry-btn:hover {
+      background-color: #ff4fa3;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1a1a1a;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="password-overlay">
+    <div id="password-box">
+      <h2>Enter Password</h2>
+      <input type="password" id="password-input" placeholder="Password" />
+      <br />
+      <button id="submit-btn">Submit</button>
+    </div>
+  </div>  <header>
+    <img src="vedangi.jpg" alt="Mohit Kharwar" class="profile-img">
+    <h1>Vedangi's Diary</h1>
+  </header>  <div id="new-entry-box">
+    <textarea id="new-entry-text" placeholder="Write your thoughts..."></textarea>
+    <button id="add-entry-btn">Add Entry</button>
+  </div>  <footer>
+    <p>&copy; 2025 Vedangi Raut |  Diary</p>
+  </footer>  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const overlay = document.getElementById("password-overlay");
+      const input = document.getElementById("password-input");
+      const btn = document.getElementById("submit-btn");
+      btn.addEventListener("click", () => {
+        const password = input.value;
+        if (password === "1234") {
+          overlay.style.display = "none";
+        } else {
+          alert("Incorrect password.");
+        }
+      });
+
+      const entryBox = document.getElementById("new-entry-box");
+      const addBtn = document.getElementById("add-entry-btn");
+      const textArea = document.getElementById("new-entry-text");
+
+      function loadEntries() {
+        const saved = localStorage.getItem("diaryEntries");
+        if (saved) {
+          const entries = JSON.parse(saved);
+          entries.forEach((e, i) => renderEntry(e.date, e.text, i));
+        }
+      }
+
+      function saveEntries(entries) {
+        localStorage.setItem("diaryEntries", JSON.stringify(entries));
+      }
+
+      function renderEntry(date, text, index) {
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `<h2>${date}</h2><p>${text}</p>
+          <button onclick="editEntry(${index})">Edit</button>
+          <button onclick="deleteEntry(${index})">Delete</button>`;
+        document.body.insertBefore(div, document.querySelector("footer"));
+      }
+
+      window.editEntry = function(index) {
+        const entries = JSON.parse(localStorage.getItem("diaryEntries"));
+        const newText = prompt("Edit your entry:", entries[index].text.replace(/<br>/g, '\n'));
+        if (newText !== null) {
+          entries[index].text = newText.replace(/\n/g, '<br>');
+          saveEntries(entries);
+          location.reload();
+        }
+      }
+
+      window.deleteEntry = function(index) {
+        const entries = JSON.parse(localStorage.getItem("diaryEntries"));
+        if (confirm("Are you sure you want to delete this entry?")) {
+          entries.splice(index, 1);
+          saveEntries(entries);
+          location.reload();
+        }
+      }
+
+      addBtn.addEventListener("click", () => {
+        const text = textArea.value.trim();
+        if (text) {
+          const today = new Date().toLocaleDateString();
+          const saved = localStorage.getItem("diaryEntries");
+          const entries = saved ? JSON.parse(saved) : [];
+          const formatted = text.replace(/\n/g, '<br>');
+          entries.push({ date: today, text: formatted });
+          saveEntries(entries);
+          renderEntry(today, formatted, entries.length - 1);
+          textArea.value = "";
+        }
+      });
+
+      loadEntries();
+    });
+  </script></body>
+</html>

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohit's Diary</title>
+  <style>
+    body { font-family: sans-serif; background: #0a0a0a; color: #fff; padding: 2rem; }
+    textarea { width: 100%; min-height: 100px; padding: 0.5rem; }
+    button { margin-top: 1rem; padding: 0.5rem 1rem; background: #ff69b4; border: none; color: #000; cursor: pointer; border-radius: 5px; }
+    .entry { background: #111; border-left: 4px solid #ff69b4; padding: 1rem; margin-top: 1rem; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Mohit's Diary</h1>
+  <textarea id="entryText" placeholder="Write your thoughts..."></textarea>
+  <br>
+  <button onclick="addEntry()">Add Entry</button>
+  <div id="entries"></div>
+
+  <script>
+    const api = 'http://localhost:5000/entries';
+
+    async function loadEntries() {
+      const res = await fetch(api);
+      const data = await res.json();
+      document.getElementById('entries').innerHTML = '';
+      data.forEach((entry, index) => {
+        document.getElementById('entries').innerHTML += `
+          <div class="entry">
+            <h3>${entry.date}</h3>
+            <p>${entry.text}</p>
+            <button onclick="deleteEntry(${index})">Delete</button>
+          </div>`;
+      });
+    }
+
+    async function addEntry() {
+      const text = document.getElementById('entryText').value.trim();
+      if (!text) return;
+      await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: new Date().toLocaleDateString(), text })
+      });
+      document.getElementById('entryText').value = '';
+      loadEntries();
+    }
+
+    async function deleteEntry(index) {
+      await fetch(`${api}/${index}`, { method: 'DELETE' });
+      loadEntries();
+    }
+
+    loadEntries();
+  </script>
+</body>
+</html>

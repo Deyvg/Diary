@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -155,6 +156,17 @@
     #add-entry-btn:hover {
       background-color: #ff4fa3;
     }
+    #download-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background-color: var(--accent-color);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
     footer {
       text-align: center;
       padding: 1rem;
@@ -179,7 +191,7 @@
   </header>  <div id="new-entry-box">
     <textarea id="new-entry-text" placeholder="Write your thoughts..."></textarea>
     <button id="add-entry-btn">Add Entry</button>
-    <button id="add-entry-btn">Download All Entries</button>
+    <button id="download-btn">Download All Entries</button>
   </div>  <footer>
     <p>&copy; 2025 Vedangi Raut |  Diary</p>
   </footer>  <script>
